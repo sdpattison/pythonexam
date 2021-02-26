@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Trip</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="justify-content-spacebetween">
+            <h1>Hello {{this_user.first_name}}! Let's Edit Your Trip!</h1>
+            <a href="/exam/dashboard">Dashboard</a>
+            <a href="/logout">Log Out</a>
+
+        </header>
+        <div class="container">
+            {% if messages %}
+                    {% for message in messages %}
+                    <h4>{{ message }}</h4>
+                    {% endfor %}
+                {% endif %}
+            <div class="col">
+                <form action="/exam/trips/update/{{this_trip.id}}" class = "form-control" method="Post">
+                    {% csrf_token %}
+                    Destination: <input type="text" name= "destination" class="form-control" value="{{this_trip.destination}}"><br>
+                    Start Date: <input type="date" name="start_date" class="form-control" value="{{this_trip.start_date|date:'Y-m-d'}}"><br>
+                    End Date: <input type="date" name="end_date" class="form-control" value="{{this_trip.end_date|date:'Y-m-d'}}"><br>
+                    Plan: <textarea name="plan" class="form-control" cols="30" rows="10">{{this_trip.plan}}</textarea><br>
+                    <a href="/exam/dashboard" class="btn btn-danger">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

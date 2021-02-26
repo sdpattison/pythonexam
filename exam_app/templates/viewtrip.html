@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Trip</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="justify-content-spacebetween">
+            <h1>Hello {{this_user.first_name}}! Read About This Trip!</h1>
+            <a href="/exam/dashboard">Dashboard</a>
+            <a href="/logout">Log Out</a>
+        </header>
+        <div class="container">
+            {% if messages %}
+                    {% for message in messages %}
+                    <h4>{{ message }}</h4>
+                    {% endfor %}
+                {% endif %}
+            <div class="col">
+                <h4>{{this_trip.destination}}</h4>
+                <ul>
+                    <li>Start Date: {{this_trip.start_date|date:"M d, Y"}}</li>
+                    <li>End Date: {{this_trip.end_date|date:"M d, Y"}}</li>
+                    <li>Created On: {{this_trip.created_at|date:"M d, Y"}}</li>
+                    <li>Updated At: {{this_trip.updated_at|date:"M d, Y"}}</li>
+                    <li>Plan: {{this_trip.plan}}</li>
+                    <li>Created by: {{this_trip.creator.first_name}} {{this_trip.creator.last_name}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="containter">
+            <div class="col">
+                <h4>People Who Have Joined This Trip:</h4>
+                <ul>
+                {% for person in this_trip.attendees.all %}
+                {% if person.id != this_trip.creator.id %}
+                <li>{{person.first_name}} {{person.last_name}}</li>
+                {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
